@@ -13,7 +13,7 @@ originally inspired by [Capistrano](https://capistranorb.com/documentation/advan
 
 The server configuration in shipit will take an object.
 
-'''
+```js
   servers: [
         {
           user: "be",
@@ -22,13 +22,13 @@ The server configuration in shipit will take an object.
           dbServer: true
         }
       ]
-'''
+```
 
 By setting these flags you can define a method like following to be true if the server is a dbServer
 
-'''
+```js
 (connection) =>connection.dbServer === true
-'''
+```
 
 The plugin adds 
 
@@ -39,10 +39,12 @@ The plugin adds
 
 Each of them takes a condition function as the first argument
 
-```
+```js
 shipit.remoteWithCondition((condition => (connection.dbServer === true ), "pwd"))
-'''
-
+```
+```js
+shipit.copyToRemoteWithCondition((condition => (connection.appServer === true ), "/tmp/local.txt", "/tmp/remote.txt"))
+```
 
 # License
 
