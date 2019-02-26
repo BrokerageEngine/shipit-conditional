@@ -1,21 +1,47 @@
-# shipit-bastion
+# shipit-conditional
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
-**Deploy to Bastion / Jump Servers with ShipIt** ✨
+**Restrict certain tasks to certain servers** ✨
 
-This plugin adds features to make it easier to deploy projects to servers that are on the other
-side of bastion / jump servers.
+You may have situations where you only want to deploy to servers matching certain criteria. 
+For example, you may have changed some aspect of how the web role works, but don’t want to trigger a deployment to your database servers.
+
+originally inspired by [Capistrano](https://capistranorb.com/documentation/advanced-features/role-filtering/)
 
 # Features
 
+The server configuration in shipit will take an object.
 
-* **bastionUser** - This sets the userid for the user on the bastion server. 
-* **bastionHost** - This sets the host for the bastion server.
-* **USER env** - If no bastion user is set the system uses process.env.USER for the bastion connection
-* **env Override** - You can set the process.env.BASTION_USER to set the user for the bastion from the env  
-* **shipit.sshOptions()** - this method can be passed to any command to use the bastion settings
+'''
+  servers: [
+        {
+          user: "be",
+          host: "www.brokerageengine.com",
+          appServer: true,
+          dbServer: true
+        }
+      ]
+'''
 
+By setting these flags you can define a method like following to be true if the server is a dbServer
+
+'''
+(connection) =>connection.dbServer === true
+'''
+
+The plugin adds 
+
+* shipit.remoteWithCondition
+* shipit.remoteCopyWithCondition
+* shipit.copyToRemoteWithCondition
+* shipit.copyFromRemoteWithCondition 
+
+Each of them takes a condition function as the first argument
+
+```
+shipit.remoteWithCondition((condition => (connection.dbServer === true ), "pwd"))
+'''
 
 
 # License
