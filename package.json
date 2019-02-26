@@ -50,7 +50,6 @@
     "string-length": "^2.0.0"
   },
   "dependencies": {
-    "ssh-proxy-pool": "^0.0.3",
-    "shipit-utils": "^1.4.1"
+
   }
 }

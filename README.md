@@ -9,6 +9,10 @@ For example, you may have changed some aspect of how the web role works, but don
 
 originally inspired by [Capistrano](https://capistranorb.com/documentation/advanced-features/role-filtering/)
 
+**** Currently this requires shipit-bastion as well ***
+
+The methods needed in the ssh pool are part of ssh-proxy-pool. Currently that means you need to include shipit-bastion before this plugin to use it.
+
 # Features
 
 The server configuration in shipit will take an object.
