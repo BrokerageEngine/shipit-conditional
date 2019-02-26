@@ -1,0 +1,11 @@
+{
+  "parser": "babel-eslint",
+  "extends":  ["prettier"],
+  "env": {
+    "mocha": true
+  },
+  "rules": {
+    "comma-dangle": ["error", "only-multiline"],
+    "quotes": ["error", "double", { "allowTemplateLiterals": true }]
+  }
+}
