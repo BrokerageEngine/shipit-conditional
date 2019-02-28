@@ -22,8 +22,7 @@ The server configuration in shipit will take an object.
         {
           user: "be",
           host: "www.brokerageengine.com",
-          appServer: true,
-          dbServer: true
+          roles: ["app", "db"]
         }
       ]
 ```
@@ -49,7 +48,24 @@ shipit.remoteWithCondition((condition => (connection.dbServer === true ), "pwd")
 ```js
 shipit.copyToRemoteWithCondition((condition => (connection.appServer === true ), "/tmp/local.txt", "/tmp/remote.txt"))
 ```
-
+```js
+const isRole = ( role) =>  (connection) => connection.options &&
+    connection.options.remote &&
+    connection.options.remote.roles &&
+    connection.options.remote.roles.includes(role)
+  const isAppServer = isRole("app")
+  const isDBServer = isRole("db")
+   
+  
+ 
+  shipit.task("pwd",async  function() {
+    //Gets pwd for all app servers
+   const result = await shipit.remoteWithCondition(isAppServer, "pwd")
+   //Gets the /tmp only for the db server
+   const result2 = await shipit.remoteWithCondition(isDBServer, "ls -l /tmp")
+  });
+};
+```
 # License
 
 MIT © 2019 Brokerage Engine, Inc
