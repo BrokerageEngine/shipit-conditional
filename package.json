@@ -1,6 +1,6 @@
 {
   "name": "shipit-conditional",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "This package adds support for running tasks only on certain hosts in the server list",
   "main": "./lib/index.js",
   "engines": {
