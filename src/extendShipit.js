@@ -11,13 +11,13 @@ function extendShipit(shipit) {
    * @throws {ExecError}
    */
   Shipit.prototype.remoteWithCondition = async function remoteWithCondition(conditionFunction, command, options) {
-    return this.pool.runWithCondition(conditionFunction,command, options)
+    return shipit.pool.runWithCondition(conditionFunction,command, options)
   }
 
   /**
    * Copy from local to remote or vice versa if the condition passes..
    *
-   * @params {function} conditionFunction - this will be passed one connection at a time. If the condition passes it will execute the remote task
+   * @params {function} conditionFunction - shipit will be passed one connection at a time. If the condition passes it will execute the remote task
    * @param {string} src
    * @param {string} dest
    * @returns {ExecResult|MultipleExecResult}
@@ -25,7 +25,7 @@ function extendShipit(shipit) {
    */
   Shipit.prototype.remoteCopyWithCondition =  async function remoteCopyWithCondition(conditionFucntion, src, dest, options) {
 
-    return this.pool.copyWithCondition(conditionFunction, src, dest, this._optionsForCopy(options))
+    return shipit.pool.copyWithCondition(conditionFunction, src, dest, shipit._optionsForCopy(options))
   }
 
   /**
@@ -45,7 +45,7 @@ function extendShipit(shipit) {
    */
   Shipit.prototype.copyToRemoteWithCondition =  async function copyToRemoteWithCondition(conditionFunction,src, dest, options) {
 
-    return this.pool.copyToRemoteWithCondition(conditionFunction, src, dest, this._optionsForCopy(options))
+    return shipit.pool.copyToRemoteWithCondition(conditionFunction, src, dest, shipit._optionsForCopy(options))
   }
 
   /**
@@ -64,22 +64,22 @@ function extendShipit(shipit) {
    * @throws {ExecError}
    */
   Shipit.prototype.copyFromRemoteWithCondition =  async function  copyFromRemoteWithCondition(conditionFunction, src, dest, options) {
-    return this.pool.copyFromRemoteWithCondition(conditionFunction, src, dest, this._optionsForCopy(options))
+    return shipit.pool.copyFromRemoteWithCondition(conditionFunction, src, dest, shipit._optionsForCopy(options))
   }
  /**
  * Build the default options for a copy
    */
   Shipit.prototype._defaultOptionsForCopy = function _defaultOptionsForCopy() {
     return( {
-      ignores: this.config && this.config.ignores ? this.config.ignores : [],
-      rsync: this.config && this.config.rsync ? this.config.rsync : [],
+      ignores: shipit.config && shipit.config.ignores ? shipit.config.ignores : [],
+      rsync: shipit.config && shipit.config.rsync ? shipit.config.rsync : [],
     });
   }
   /**
    * Resolve the options for copying
    */
   Shipit.prototype._optionsForCopy = function _optionsForCopy(options) {
-    return( { ...this._defaultOptionsForCopy(), ...options });
+    return( { ...shipit._defaultOptionsForCopy(), ...options });
 
   }
 }
